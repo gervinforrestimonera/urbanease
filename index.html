@@ -1,0 +1,824 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>UrbanEase Collections — Modern Lifestyle & Accessories</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <a href="https://www.urbanease.com" target="_blank">Open UrbanEase in New Tab</a>
+  <style>
+    /* ---------- Reset & Base ---------- */
+    :root{
+      --bg:#566172;
+      --card:#5927b5;
+      --muted:#9aa6b2;
+      --accent:#b56576;
+      --glass: rgba(255,255,255,0.04);
+      --glass-2: rgba(255,255,255,0.02);
+    }
+    * { box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, #1116a1 0%, #832b79 100%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.4;
+    }
+    a { color:inherit; text-decoration:none; }
+    .container{ max-width:1200px; margin:28px auto; padding:20px; }
+
+    /* ---------- Header ---------- */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
+    }
+    .brand{
+      display:flex;
+      gap:14px;
+      align-items:center;
+    }
+    .logo{
+      width:64px; height:64px;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.02);
+      background:linear-gradient(135deg, #1f2937, #3b2b3a);
+      display:flex; align-items:center; justify-content:center;
+      font-weight:700;
+      font-size:18px;
+      color:#fff;
+      transform:rotate(-6deg);
+    }
+    .brand h1{ margin:0; font-size:20px; letter-spacing:0.2px; }
+    .brand p{ margin:0; color:var(--muted); font-size:13px; }
+
+    nav{ display:flex; gap:12px; align-items:center; }
+    .btn {
+      background: linear-gradient(180deg, rgba(22, 53, 226, 0.878), rgba(141, 34, 145, 0.927));
+      border:1px solid rgba(204, 158, 30, 0.614);
+      color: #fff;
+      padding:10px 14px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      transition:transform .18s ease, box-shadow .18s ease;
+      backdrop-filter: blur(4px);
+    }
+    .btn:hover{ transform:translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+
+    /* ---------- Hero & About ---------- */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:24px;
+      align-items:center;
+      margin-bottom:22px;
+    }
+    .hero-card{
+      background: linear-gradient(180deg, rgba(183, 30, 170, 0.447), transparent);
+      border:1px solid var(--glass);
+      padding:22px;
+      border-radius:14px;
+      box-shadow: 0 6px 30px rgba(10, 26, 93, 0.6);
+    }
+    .about-title{ font-size:18px; margin:0 0 8px 0; }
+    .about-text{ color:var(--muted); margin:0; font-size:15px; }
+
+    .quick-info{ display:flex; flex-direction:column; gap:10px; }
+    .info-card{
+      background:var(--card);
+      border-radius:12px;
+      padding:12px;
+      border:1px solid var(--glass-2);
+      display:flex; gap:10px; align-items:center;
+      transform: translateY(0);
+      transition: transform .45s cubic-bezier(.2,.9,.2,1);
+    }
+    .info-card:hover{ transform: translateY(-8px) rotate(-1deg); }
+
+    /* ---------- Product Grid ---------- */
+    .products{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap:18px;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));
+      border-radius:12px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.03);
+      transition: transform .25s ease, box-shadow .25s ease;
+      position:relative;
+    }
+    .card:hover{ transform: translateY(-8px); box-shadow: 0 18px 50px rgba(0,0,0,0.6); }
+
+    .card-image{
+      position:relative;
+      padding-top:65%;
+      overflow:hidden;
+      display:block;
+      background:linear-gradient(120deg, rgba(255,255,255,0.02), rgba(0,0,0,0.12));
+    }
+    .card-image img{
+      position:absolute;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      top:0; left:0;
+      transition: transform .9s cubic-bezier(.2,.9,.2,1);
+      transform: scale(1);
+      filter: saturate(0.96) contrast(1.03);
+    }
+    .card:hover .card-image img{ transform: scale(1.08) rotate(-1.2deg); }
+
+    /* price badge */
+    .price-badge{
+      position:absolute;
+      top:12px;
+      right:12px;
+      background: linear-gradient(90deg, rgba(0,0,0,0.45), rgba(0,0,0,0.2));
+      padding:8px 12px;
+      border-radius:10px;
+      font-weight:700;
+      font-size:14px;
+      border:1px solid rgba(255,255,255,0.03);
+      backdrop-filter: blur(6px);
+    }
+
+    .card-body{
+      padding:12px 14px 16px 14px;
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .product-title{ font-size:15px; margin:0; }
+    .product-desc{ margin:0; color:var(--muted); font-size:13px; min-height:36px; }
+    .product-actions{ display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:6px; }
+
+    .small{
+      font-size:13px;
+      color:var(--muted);
+    }
+
+    .add-btn{
+      background: linear-gradient(90deg, var(--accent), #8f3e56);
+      padding:8px 12px;
+      border-radius:10px;
+      color:white;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+      transition: transform .16s ease;
+    }
+    .add-btn:active{ transform: translateY(2px); }
+
+    /* ---------- Hover micro animation ---------- */
+    .sparkle {
+      position:absolute; inset:0; pointer-events:none;
+      background: radial-gradient(circle at 10% 20%, rgba(255,255,255,0.05), transparent 6%),
+                  radial-gradient(circle at 80% 70%, rgba(255,255,255,0.03), transparent 8%);
+      opacity:0;
+      transition: opacity .4s ease;
+    }
+    .card:hover .sparkle { opacity:1; }
+
+    /* ---------- Footer ---------- */
+    footer{
+      margin-top:28px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    /* ---------- Modal (Login/Reg) ---------- */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      display:none; align-items:center; justify-content:center;
+      background: rgba(2,6,23,0.6);
+      z-index:60;
+      padding:20px;
+    }
+    .modal{
+      width:100%;
+      max-width:420px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      padding:18px;
+      border:1px solid rgba(47, 27, 198, 0.03);
+      box-shadow: 0 12px 40px rgba(6, 11, 34, 0.7);
+      transform: translateY(20px) scale(.98);
+      opacity:0;
+      transition: all .28s cubic-bezier(.2,.9,.2,1);
+    }
+    .modal.show { transform: translateY(0) scale(1); opacity:1; }
+    .modal-backdrop.show { display:flex; }
+
+    label{ display:block; font-size:13px; margin-bottom:6px; color:var(--muted); }
+    input[type="text"], input[type="password"], input[type="email"]{
+      width:100%; padding:10px 12px; border-radius:8px;
+      background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.03);
+      color: #e6eef6; outline:none;
+      transition: box-shadow .15s ease, transform .12s ease;
+    }
+    input:focus{ box-shadow: 0 6px 20px rgba(0,0,0,0.6); transform: translateY(-2px); }
+
+    .modal h3{ margin:0 0 6px 0; }
+    .modal p{ margin:0 0 12px 0; color:var(--muted); font-size:14px; }
+
+    .row{ display:flex; gap:10px; }
+    .row .col { flex:1; }
+
+    .close-x{ position:absolute; right:14px; top:12px; cursor:pointer; color:var(--muted); }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:880px){
+      .hero{ grid-template-columns: 1fr; }
+      header{ flex-direction:column; align-items:flex-start; gap:14px; }
+      .logo{ width:56px; height:56px; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <header>
+      <div class="brand">
+        <div class="logo">UE</div>
+        <div>
+          <h1>UrbanEase Collections</h1>
+          <p>Modern Lifestyle & Accessories — stylish, practical items that complement everyday living.</p>
+        </div>
+      </div>
+
+      <nav>
+        <a href="#about" class="btn">About</a>
+        <a href="#products" class="btn">Products</a>
+       
+        <a href="#login" id="open-login" class="btn">Log in</a>
+        <a href="#register" id="open-register" class="btn">Register</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-card">
+          <h2 class="about-title">About UrbanEase Collections</h2>
+          <p class="about-text">
+            The theme of this website is <strong>Modern Lifestyle & Accessories</strong>. It focuses on stylish,
+            practical items that complement everyday living. This collection features lifestyle accessories and
+            home & personal essentials designed for modern, on-the-go people.
+          </p>
+
+          <div style="height:12px"></div>
+
+          <div class="quick-info">
+            <div class="info-card">
+              <div style="flex:1">
+                <strong>Website Name</strong>
+                <div class="small">UrbanEase Collections</div>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div style="flex:1">
+                <strong>Genres</strong>
+                <div class="small">Lifestyle Accessories • Home & Personal Essentials</div>
+              </div>
+            </div>
+
+            <div class="info-card">
+              <div style="flex:1">
+                <strong>Sample Products</strong>
+                <div class="small">Wallets, Water Bottles, Earbuds, Desk Lamps, Mini Humidifiers</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside>
+          <div class="hero-card" style="display:flex; flex-direction:column; gap:10px; align-items:stretch;">
+            <h3 style="margin:0">Quick Links</h3>
+            <a class="btn" href="#products" style="display:block; text-align:center;">Browse 20 Products</a>
+            <a class="btn" id="open-login-2" href="#login" style="display:block; text-align:center;">Log in</a>
+            <a class="btn" id="open-register-2" href="#register" style="display:block; text-align:center;">Register</a>
+            <p style="margin:0; color:var(--muted); font-size:13px;">
+              Build and customize this page in Visual Studio. Replace the product images with your own photos and
+              tweak descriptions & prices.
+            </p>
+          </div>
+        </aside>
+      </section>
+
+      <!-- ---------- Products ---------- -->
+      <section id="products">
+        <h2 style="margin:6px 0 14px 0;">Our Products</h2>
+        <div class="products">
+
+          
+          <!-- Product 1 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="prem-leather-wallet.jpg" alt = "Premium Leather Wallet">
+              <div class="price-badge">₱799</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Premium Leather Wallet</h3>
+              <p class="product-desc">Slim genuine leather bifold wallet with RFID protection — classic, durable, and minimal.</p>
+              <div class="product-actions">
+                <div class="small">Category: Lifestyle Accessories</div>
+                <button class="add-btn" data-name="Premium Leather Wallet" data-price="799">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 2 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="stainless-steel-water-bottle-sport-outdoor-reusable-s1424f1.jpg" alt="Stainless Steel Water Bottle">
+              <div class="price-badge">₱499</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Stainless Steel Water Bottle</h3>
+              <p class="product-desc">Vacuum-insulated bottle keeps drinks cold for 24h and hot for 12h — leakproof lid included.</p>
+              <div class="product-actions">
+                <div class="small">Category: Home Essentials</div>
+                <button class="add-btn" data-name="Stainless Steel Water Bottle" data-price="499">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 3 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="JBLTuneBuds_Main_Black_600x.webp" alt="Wireless Earbuds">
+              <div class="price-badge">₱1,199</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Wireless Earbuds</h3>
+              <p class="product-desc">True wireless earbuds with touch controls and up to 20h battery life with case.</p>
+              <div class="product-actions">
+                <div class="small">Category: Lifestyle Accessories</div>
+                <button class="add-btn" data-name="Wireless Earbuds" data-price="1199">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 4 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="minimalist-lamp.jpg" alt="Minimalist Desk Lamp">
+              <div class="price-badge">₱899</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Minimalist Desk Lamp</h3>
+              <p class="product-desc">Adjustable LED desk lamp with warm & cool modes and touch dimmer — elegant matte finish.</p>
+              <div class="product-actions">
+                <div class="small">Category: Home Essentials</div>
+                <button class="add-btn" data-name="Minimalist Desk Lamp" data-price="899">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 5 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="portable-humidifier.jpg" alt="Portable Mini Humidifier">
+              <div class="price-badge">₱349</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Portable Mini Humidifier</h3>
+              <p class="product-desc">Compact USB humidifier for bedside or travel — whisper-quiet and easy to refill.</p>
+              <div class="product-actions">
+                <div class="small">Category: Home & Personal</div>
+                <button class="add-btn" data-name="Portable Mini Humidifier" data-price="349">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 6 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="intentional-canvas-tote-backpack-large-lifestyle-rags2riches-199345.webp" alt="Canvas Tote Bag">
+              <div class="price-badge">₱399</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Canvas Tote Bag</h3>
+              <p class="product-desc">Durable canvas tote for everyday carry with inner pocket for small items.</p>
+              <div class="product-actions">
+                <div class="small">Category: Lifestyle Accessories</div>
+                <button class="add-btn" data-name="Canvas Tote Bag" data-price="399">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 7 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="magnetic-stand.jpg" alt="Magnetic Phone Stand">
+              <div class="price-badge">₱199</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Magnetic Phone Stand</h3>
+              <p class="product-desc">Compact magnetic stand for desks — holds phones and small tablets at a comfortable angle.</p>
+              <div class="product-actions">
+                <div class="small">Category: Desk Accessories</div>
+                <button class="add-btn" data-name="Magnetic Phone Stand" data-price="199">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 8 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="travel-org-pouch.webp" alt="Travel Organizer Pouch">
+              <div class="price-badge">₱259</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Travel Organizer Pouch</h3>
+              <p class="product-desc">Multi-pocket organizer for chargers, cables, and small accessories — zip-secure & lightweight.</p>
+              <div class="product-actions">
+                <div class="small">Category: Travel Essentials</div>
+                <button class="add-btn" data-name="Travel Organizer Pouch" data-price="259">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 9 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="ceramic-coffee-drip.avif" alt="Ceramic Coffee Dripper">
+              <div class="price-badge">₱2,200</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Ceramic Coffee Dripper</h3>
+              <p class="product-desc">Pour-over dripper for slow-brew coffee lovers — smooth extraction and elegant style.</p>
+              <div class="product-actions">
+                <div class="small">Category: Home Essentials</div>
+                <button class="add-btn" data-name="Ceramic Coffee Dripper" data-price="549">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 10 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="compact-mini-tool.jpg" alt="Compact Multi-tool">
+              <div class="price-badge">₱649</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Compact Multi-tool</h3>
+              <p class="product-desc">Pocket multi-tool for quick fixes — includes pliers, screwdriver, bottle opener and more.</p>
+              <div class="product-actions">
+                <div class="small">Category: EDC</div>
+                <button class="add-btn" data-name="Compact Multi-tool" data-price="649">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 11 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="scented-candles.jpg" alt="Scented Candle Set">
+              <div class="price-badge">₱549</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Scented Candle Set</h3>
+              <p class="product-desc">Set of three aromatic candles — calming scents perfect for evenings and relaxation.</p>
+              <div class="product-actions">
+                <div class="small">Category: Home Comfort</div>
+                <button class="add-btn" data-name="Scented Candle Set" data-price="549">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 12 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="MOFT-Invisible-Laptop-Stand-Space-Grey.webp" alt="Foldable Laptop Stand">
+              <div class="price-badge">₱699</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Foldable Laptop Stand</h3>
+              <p class="product-desc">Lightweight aluminum stand for better ergonomics — collapses for travel.</p>
+              <div class="product-actions">
+                <div class="small">Category: Workspace</div>
+                <button class="add-btn" data-name="Foldable Laptop Stand" data-price="699">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 13 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="eco-bamboo-toothbrush.jpg" alt="Eco Bamboo Toothbrush">
+              <div class="price-badge">₱129</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Eco Bamboo Toothbrush</h3>
+              <p class="product-desc">Biodegradable toothbrush with soft bristles — eco-friendly daily essential.</p>
+              <div class="product-actions">
+                <div class="small">Category: Personal Care</div>
+                <button class="add-btn" data-name="Eco Bamboo Toothbrush" data-price="129">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 14 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="noise-making-sleepbuds.jpg" alt="Noise Masking Sleepbuds">
+              <div class="price-badge">₱1,499</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Noise Masking Sleepbuds</h3>
+              <p class="product-desc">Small earbuds designed to gently mask noises and help with a restful sleep.</p>
+              <div class="product-actions">
+                <div class="small">Category: Personal Essentials</div>
+                <button class="add-btn" data-name="Noise Masking Sleepbuds" data-price="1499">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 15 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="ceramic-planter.jpg" alt="Ceramic Planter">
+              <div class="price-badge">₱299</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Ceramic Planter</h3>
+              <p class="product-desc">Minimal ceramic planter for succulents or herbs — small and stylish for any shelf.</p>
+              <div class="product-actions">
+                <div class="small">Category: Home Decor</div>
+                <button class="add-btn" data-name="Ceramic Planter" data-price="299">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 16 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="bento-bear-304-stainless-steel-insulated-lunch-box-with-spoon-home-kitchen-the-kawaii-shoppu-the-kawaii-shoppu-0.webp" alt="Insulated Lunch Box">
+              <div class="price-badge">₱459</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Insulated Lunch Box</h3>
+              <p class="product-desc">Keeps your meals fresh and warm — leak-resistant compartments for easy packing.</p>
+              <div class="product-actions">
+                <div class="small">Category: Kitchen</div>
+                <button class="add-btn" data-name="Insulated Lunch Box" data-price="459">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 17 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="Lightweight_waterproof_pouch_-_Aquapac-2602212.webp" alt="Compact Waterproof Pouch">
+              <div class="price-badge">₱179</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Compact Waterproof Pouch</h3>
+              <p class="product-desc">Protect your phone and essentials at the beach or pool — transparent and secure.</p>
+              <div class="product-actions">
+                <div class="small">Category: Travel</div>
+                <button class="add-btn" data-name="Compact Waterproof Pouch" data-price="179">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 18 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="silicon-heatproof-trivet.jpg" alt="Silicone Heatproof Trivet">
+              <div class="price-badge">₱129</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Silicone Heatproof Trivet</h3>
+              <p class="product-desc">Flexible trivet that protects surfaces from hot pots — folds for easy storage.</p>
+              <div class="product-actions">
+                <div class="small">Category: Kitchen</div>
+                <button class="add-btn" data-name="Silicone Heatproof Trivet" data-price="129">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 19 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="slim-card-holder.jpg" alt="Slim Card Holder">
+              <div class="price-badge">₱249</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Slim Card Holder</h3>
+              <p class="product-desc">Minimal card holder for daily essentials — pocket-friendly and sleek.</p>
+              <div class="product-actions">
+                <div class="small">Category: Lifestyle Accessories</div>
+                <button class="add-btn" data-name="Slim Card Holder" data-price="249">Add</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 20 -->
+          <article class="card">
+            <div class="card-image">
+              <img src="strawset.webp" alt="Reusable Straw Set">
+              <div class="price-badge">₱89</div>
+              <div class="sparkle"></div>
+            </div>
+            <div class="card-body">
+              <h3 class="product-title">Reusable Straw Set</h3>
+              <p class="product-desc">Stainless steel straw set with cleaning brush and case — eco-friendly and handy.</p>
+              <div class="product-actions">
+                <div class="small">Category: Kitchen</div>
+                <button class="add-btn" data-name="Reusable Straw Set" data-price="89">Add</button>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </section>
+
+      <footer>
+        <p>© <span id="year"></span> UrbanEase Collections —  Created with care.</p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- ---------- Login Modal Markup ---------- -->
+  <div id="modal-login" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loginTitle">
+      <span class="close-x" data-close="modal-login">✕</span>
+      <h3 id="loginTitle">Log in</h3>
+      <p>Enter your credentials to access your account.</p>
+      <form id="loginForm">
+        <label for="loginEmail">Email</label>
+        <input id="loginEmail" type="email" required placeholder="you@example.com">
+        <label for="loginPassword">Password</label>
+        <input id="loginPassword" type="password" required placeholder="••••••••">
+        <div style="height:10px"></div>
+        <div style="display:flex; gap:10px; align-items:center;">
+          <button type="submit" class="btn">Sign in</button>
+          <button type="button" class="btn" data-close="modal-login">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ---------- Register Modal Markup ---------- -->
+  <div id="modal-register" class="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="registerTitle">
+      <span class="close-x" data-close="modal-register">✕</span>
+      <h3 id="registerTitle">Create account</h3>
+      <p>Simple registration — we only collect what is necessary for this demo.</p>
+
+      <form id="regForm">
+        <label for="regName">Full name</label>
+        <input id="regName" type="text" required placeholder="Juan Dela Cruz">
+        <label for="regEmail">Email</label>
+        <input id="regEmail" type="email" required placeholder="you@example.com">
+        <label for="regPass">Password</label>
+        <input id="regPass" type="password" required placeholder="Choose a secure password">
+        <div style="height:10px"></div>
+        <div style="display:flex; gap:10px;">
+          <button type="submit" class="btn">Register</button>
+          <button type="button" class="btn" data-close="modal-register">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Basic App JS ----------
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Open modals by anchor clicks
+    function openModal(id){
+      const mb = document.getElementById(id);
+      if(!mb) return;
+      mb.classList.add('show');
+      mb.querySelector('.modal').classList.add('show');
+      mb.setAttribute('aria-hidden','false');
+      // trap focus could be added here for accessibility
+    }
+    function closeModal(id){
+      const mb = document.getElementById(id);
+      if(!mb) return;
+      mb.classList.remove('show');
+      mb.querySelector('.modal').classList.remove('show');
+      mb.setAttribute('aria-hidden','true');
+    }
+
+    document.getElementById('open-login').addEventListener('click', function(e){
+      e.preventDefault(); openModal('modal-login');
+    });
+    document.getElementById('open-register').addEventListener('click', function(e){
+      e.preventDefault(); openModal('modal-register');
+    });
+    // secondary buttons
+    document.getElementById('open-login-2').addEventListener('click', function(e){
+      e.preventDefault(); openModal('modal-login');
+    });
+    document.getElementById('open-register-2').addEventListener('click', function(e){
+      e.preventDefault(); openModal('modal-register');
+    });
+
+    // close on backdrop click or close-x buttons
+    document.querySelectorAll('.modal-backdrop').forEach(function(back){
+      back.addEventListener('click', function(e){
+        if(e.target === back) {
+          // clicked backdrop
+          back.classList.remove('show');
+          back.querySelector('.modal').classList.remove('show');
+          back.setAttribute('aria-hidden','true');
+        }
+      });
+    });
+    document.querySelectorAll('[data-close]').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        closeModal(btn.getAttribute('data-close'));
+      });
+    });
+
+    // Simple login/register handlers (demo only)
+    document.getElementById('loginForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('Demo login successful — this is a static demo page.');
+      closeModal('modal-login');
+    });
+    document.getElementById('regForm').addEventListener('submit', function(e){
+      e.preventDefault();
+      alert('Account created (demo). You can now pretend to sign in :)');
+      closeModal('modal-register');
+    });
+
+    // Add-to-cart sample interaction (demo)
+    document.querySelectorAll('.add-btn').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        const name = btn.getAttribute('data-name');
+        const price = btn.getAttribute('data-price');
+        // micro animated confirmation
+        btn.innerText = 'Added ✓';
+        setTimeout(()=> btn.innerText = 'Add', 1200);
+        // just a demo toast:
+        const toast = document.createElement('div');
+        toast.style.position='fixed';
+        toast.style.right='18px';
+        toast.style.bottom='18px';
+        toast.style.background='linear-gradient(90deg,#111, #111)';
+        toast.style.color='#fff';
+        toast.style.padding='10px 14px';
+        toast.style.borderRadius='10px';
+        toast.style.boxShadow='0 8px 30px rgba(0,0,0,0.6)';
+        toast.style.zIndex=120;
+        toast.textContent = `${name} added to cart — ₱${price}`;
+        document.body.appendChild(toast);
+        setTimeout(()=> { toast.style.opacity='0'; }, 1600);
+        setTimeout(()=> { toast.remove(); }, 2200);
+      });
+    });
+
+    // keyboard escape to close modals
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') {
+        document.querySelectorAll('.modal-backdrop.show').forEach(function(m){
+          m.classList.remove('show');
+          m.querySelector('.modal').classList.remove('show');
+          m.setAttribute('aria-hidden','true');
+        });
+      }
+    });
+
+    // Note: because this is a single file, links like login.html or registration.html are simulated with modals.
+    // If you want real separate files later, let me know and I can split them into multiple files.
+
+  </script>
+</body>
+</html>
